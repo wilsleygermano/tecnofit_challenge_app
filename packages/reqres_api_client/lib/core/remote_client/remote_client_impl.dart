@@ -17,7 +17,10 @@ class RemoteClientImpl implements RemoteClient {
       String? query,
       required String url}) async {
     try {
-      final requestUrl = query != null ? '$url?$query' : url;
+      if (_httpClient.runtimeType == Null) {
+        _httpClient = http.Client();
+      }
+      final requestUrl = query != null ? '$url/$query' : url;
       final response =
           await _httpClient.get(Uri.parse(requestUrl), headers: headers);
       var responseData = jsonDecode(response.body);
@@ -27,8 +30,6 @@ class RemoteClientImpl implements RemoteClient {
       return Response.success(data: responseData);
     } catch (e) {
       return Response.failed(error: e.toString());
-    } finally {
-      _httpClient.close();
     }
   }
 
@@ -38,8 +39,11 @@ class RemoteClientImpl implements RemoteClient {
       required dynamic body,
       required String url}) async {
     try {
-      final response = await _httpClient.post(Uri.parse(url),
-          headers: headers, body: jsonEncode(body));
+      if (_httpClient.runtimeType == Null) {
+        _httpClient = http.Client();
+      }
+      final response =
+          await _httpClient.post(Uri.parse(url), headers: headers, body: body);
       var responseData = jsonDecode(response.body);
       if (responseData != null && responseData is! Map<String, dynamic>) {
         return Response.failed(error: 'Invalid response');
@@ -47,8 +51,6 @@ class RemoteClientImpl implements RemoteClient {
       return Response.success(data: responseData);
     } catch (e) {
       return Response.failed(error: e.toString());
-    } finally {
-      _httpClient.close();
     }
   }
 }

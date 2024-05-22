@@ -20,7 +20,7 @@ void main() {
       when(() => mockRemoteClient.post(
               url: any(named: 'url'), body: any(named: 'body')))
           .thenAnswer((_) async => Response.success(data: {}));
-      final call = await client.register(body: body);
+      final call = await client.signin(body: body);
 
       // Assert
       expect(call.status, Status.success);
@@ -36,7 +36,7 @@ void main() {
       when(() => mockRemoteClient.post(
               url: any(named: 'url'), body: any(named: 'body')))
           .thenAnswer((_) async => Response.failed(error: 'error'));
-      final call = await client.register(body: body);
+      final call = await client.signin(body: body);
 
       // Assert
       expect(call.status, Status.failed);
@@ -66,7 +66,7 @@ void main() {
       when(() => mockRemoteClient.post(
               url: any(named: 'url'), body: any(named: 'body')))
           .thenAnswer((_) async => Response.failed(error: 'error'));
-      final call = await client.register(body: body);
+      final call = await client.signin(body: body);
 
       // Assert
       expect(call.status, Status.failed);
