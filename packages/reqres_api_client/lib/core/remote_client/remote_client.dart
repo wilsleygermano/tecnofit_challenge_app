@@ -1,4 +1,5 @@
-import '../generics/generics.dart';
+
+import 'package:reqres_api_client/core/generics/generics.dart';
 
 abstract class RemoteClient {
   Future<Response<Map<String, dynamic>?, String>> post({

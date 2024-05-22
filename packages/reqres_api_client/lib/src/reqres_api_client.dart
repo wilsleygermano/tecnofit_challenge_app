@@ -1,7 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:reqres_api_client/core/constants/api_routes.dart';
-
-import '../core/core.dart';
+import 'package:reqres_api_client/core/core.dart';
 
 class ReqResApiClient {
   late RemoteClient _remoteClient;
@@ -9,7 +7,7 @@ class ReqResApiClient {
   ReqResApiClient([RemoteClient? remoteClient]) {
     if (remoteClient == null) {
       setupLocator();
-      _remoteClient = GetIt.instance.get<RemoteClient>();
+      _remoteClient = GetIt.I.get<RemoteClient>();
       return;
     }
     _remoteClient = remoteClient;
@@ -18,15 +16,14 @@ class ReqResApiClient {
   /// Registers a user with the provided [body] data.
   ///
   /// Returns a [Future] that completes with a [Response] object containing a [Map<String, dynamic>?] data and a [String] error message.
-  Future<Response<Map<String, dynamic>?, String>> register({
+  Future<Response<Map<String, dynamic>?, String>> signin({
     required dynamic body,
   }) async {
     return await _remoteClient.post(
-      url: ApiRoutes.register,
+      url: ApiRoutes.signin,
       body: body,
     );
   }
-
 
   /// Retrieves a user from the API based on the provided [userId].
   ///
