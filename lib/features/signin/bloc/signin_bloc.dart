@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:tecnofit_challenge_app/core/models/user.dart';
+import 'package:tecnofit_challenge_app/features/profile/view/page/profile_page.dart';
 import 'package:tecnofit_challenge_app/features/signin/signin.dart';
 
 part 'signin_bloc_event.dart';
@@ -26,12 +28,37 @@ class SigninBloc extends Bloc<SigninBlocEvent, SigninBlocState> {
         password: password,
       );
     });
-    on<AlertDismissed>((event, emit) {
-      return _alertDismissed(event: event, emit: emit);
+    on<ResetRequested>((event, emit) {
+      return _resetRequested(event: event, emit: emit);
+    });
+    on<ProfilePageRequested>((event, emit) {
+      BuildContext context = event.context;
+      User user = event.user;
+      return _onProfilePageRequested(
+        event: event,
+        emit: emit,
+        context: context,
+        user: user,
+      );
     });
   }
+  Future<void> _onProfilePageRequested({
+    required SigninBlocEvent event,
+    required Emitter<SigninBlocState> emit,
+    required BuildContext context,
+    required User user,
+  }) async {
+    emit(state.copyWith(
+      status: SigninStatus.success,
+    ));
+    await Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => ProfilePage(user: user),
+      ),
+    );
+  }
 
-  void _alertDismissed({
+  void _resetRequested({
     required SigninBlocEvent event,
     required Emitter<SigninBlocState> emit,
   }) {

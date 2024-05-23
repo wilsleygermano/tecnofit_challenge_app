@@ -16,6 +16,8 @@ class User extends Equatable {
   final String avatar;
   final String token;
 
+  String get fullName => '$firstName $lastName';
+
   User copyWith({
     int? id,
     String? email,
