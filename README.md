@@ -2,6 +2,7 @@
 
 ## Running Locally
 To run this project locally you must have Flutter 3.22.0.
+Otherwise you can access the app [here](https://tecnofit-challenge.web.app/).
 
 ## Packages
 
