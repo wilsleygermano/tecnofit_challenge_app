@@ -10,14 +10,15 @@ class TecnoFitChallengApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFFE9F2FF),
+          seedColor: const Color(0XFFf9f9f9),
+          surface: const Color(0XFFf9f9f9),
         ),
         useMaterial3: true,
         fontFamily: "Lato",
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            backgroundColor: WidgetStatePropertyAll(
-              const Color(0xFF6C63FF).withOpacity(0.4),
+            backgroundColor: const WidgetStatePropertyAll(
+              Color(0xFF89CFF0),
             ),
             shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(

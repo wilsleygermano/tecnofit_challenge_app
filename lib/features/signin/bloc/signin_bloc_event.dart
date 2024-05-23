@@ -14,6 +14,15 @@ final class SigninRequested extends SigninBlocEvent {
   final String password;
 }
 
-final class AlertDismissed extends SigninBlocEvent {
-  AlertDismissed();
+final class ResetRequested extends SigninBlocEvent {
+  ResetRequested();
+}
+
+final class ProfilePageRequested extends SigninBlocEvent {
+  final BuildContext context;
+  final User user;
+  ProfilePageRequested({
+    required this.context,
+    required this.user,
+  });
 }
